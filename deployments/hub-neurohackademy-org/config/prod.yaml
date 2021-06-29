@@ -343,6 +343,8 @@ jupyterhub:
     https:
       enabled: true
       hosts: [hub.neurohackademy.org]
+      letsencrypt:
+        contactEmail: erik@sundellopensource.se
     service:
       type: LoadBalancer
       # NOTE: This address was reserved using the gcloud CLI for the nh2020 hub
