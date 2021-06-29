@@ -4,12 +4,14 @@ name: deploy-gke
 on:
   push:
     paths:
+      - .github/workflows/deploy-gke.yaml
       - chart/**
       - deployments/**
     branches:
       - main
   pull_request:
     paths:
+      - .github/workflows/deploy-gke.yaml
       - chart/**
       - deployments/**
   workflow_dispatch:
@@ -34,7 +36,7 @@ jobs:
         python-version: 3.8
 
     # ref: https://github.com/google-github-actions/setup-gcloud
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@v0.2.1
+    - uses: google-github-actions/setup-gcloud/@v0.2.1
       with:
         # Secrets configured in https://github.com/neurohackademy/nh2021-jupyterhub/settings/secrets
         # - GCP_SA_KEY is the GCP Service Account .json file in base64:
@@ -56,7 +58,7 @@ jobs:
     - name: "hubploy: build"
       if: github.event_name != 'push' && github.event_name != 'workflow_dispatch'
       run: |
-        hubploy build hub-neurohackademy-org --push
+        hubploy build hub-neurohackademy-org
 
     - name: "hubploy: build and push"
       if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
