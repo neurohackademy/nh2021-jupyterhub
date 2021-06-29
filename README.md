@@ -1,12 +1,12 @@
-![deploy-gke](https://github.com/neurohackademy/nh2020-jupyterhub/workflows/deploy-gke/badge.svg)
-![deploy-book](https://github.com/neurohackademy/nh2020-jupyterhub/workflows/deploy-book/badge.svg)
+![deploy-gke](https://github.com/neurohackademy/nh2021-jupyterhub/workflows/deploy-gke/badge.svg)
+![deploy-book](https://github.com/neurohackademy/nh2021-jupyterhub/workflows/deploy-book/badge.svg)
 
 # Infra and documentation for NeuroHackademy's JupyterHub
 
 [hub.neurohackademy.org](https://hub.neurohackademy.org) is a JupyterHub to be
-used by instructors and students of the NeuroHackademy.org course 2020, where
+used by instructors and students of the NeuroHackademy.org course 2021, where
 the documentation on how to use it is available at
-[neurohackademy.github.io/nh2020-jupyterhub](https://neurohackademy.github.io/nh2020-jupyterhub).
+[neurohackademy.github.io/nh2021-jupyterhub](https://neurohackademy.github.io/nh2021-jupyterhub).
 
 ## Repo content
 
@@ -14,7 +14,7 @@ The Helm chart in [./chart](chart) is automatically built and deployed to
 [hub.neurohackademy.org](https://hub.neurohackademy.org) and the
 [jupyter-book](https://jupyterbook.org) in [./book](book) is automatically built
 and deployed to
-[neurohackademy.github.io/nh2020-jupyterhub](https://neurohackademy.github.io/nh2020-jupyterhub).
+[neurohackademy.github.io/nh2021-jupyterhub](https://neurohackademy.github.io/nh2021-jupyterhub).
 
 The automation for this is defined in
 [.github/workflows/deploy-gke](github/workflows/deploy-gke) and

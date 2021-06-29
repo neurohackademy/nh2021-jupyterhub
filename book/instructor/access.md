@@ -7,7 +7,7 @@ get write permissions to shared storage in `/nh/data` or `~/data` which is is a
 symlink to `/nh/data`.
 
 As an instructor, please add yourself to the
-[ACL](https://github.com/neurohackademy/nh2020-jupyterhub/edit/master/deployments/hub-neurohackademy-org/config/common.yaml).
+[ACL](https://github.com/neurohackademy/nh2021-jupyterhub/edit/master/deployments/hub-neurohackademy-org/config/common.yaml).
 
 ```{note}
 You add yourself by following the link above. Fork the GitHub repository and

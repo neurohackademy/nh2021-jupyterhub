@@ -37,10 +37,6 @@ jupyterhub:
         # + cert-manager and additional ingress k8s resources.
         url: http://grafana
 
-    db:
-      pvc:
-        storageClassName: ssd
-
     extraConfig:
       00-acl-parsing: |
         import os

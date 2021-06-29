@@ -1,51 +1,47 @@
 nfs:
-  enabled: false
+  # IMPORTANT: if you update the value of nfs.enabled, you need to update some
+  # other values as well. Search for "IMPORTANT: NFS" in this file.
+  enabled: true
   # Use the output from the command below to set serverIP and serverName.
   # Inspect fileShares.0.name for the serverName and networks.0.ipAddresses.0
   # for the serverIP.
   #
-  #   gcloud beta filestore instances describe nh-2020 --zone=us-east1-b
+  #   gcloud filestore instances describe nh --zone=us-west1-b
   #
-  serverIP: 10.60.0.18
+  serverIP: 10.0.8.18  # Via 10.0.8.16/29
   serverName: nh
-  ## gitRepoSync ensures /nh/curriculum (NFS) is available on all nodes. It is
-  ## relevant to ensure that things don't break if GitHub is temporarily
-  ## unavailable etc.
+  # gitRepoSync ensures /nh/curriculum (NFS) is available on all nodes. It is
+  # relevant to ensure that things don't break if GitHub is temporarily
+  # unavailable etc.
+  #
   gitRepoSync:
     enabled: false
-  ## nodeCacher ensures /nh/data-cache (node local copy of /nh/data (NFS)) is
-  ## available on all nodes. It mounts the NFS share /nh/data and ensures a
-  ## cache is updated in /nh/data-cache on each node. This was introduced as a
-  ## way to ensure we don't run into issues where access to data in the NFS
-  ## server is being read too intensively by users that end up needing to wait
-  ## several minutes on read operations.
-  ##
-  ## ref: https://github.com/neurohackademy/nh2020-jupyterhub/issues/114
+  # nodeCacher ensures /nh/data-cache (node local copy of /nh/data (NFS)) is
+  # available on all nodes. It mounts the NFS share /nh/data and ensures a
+  # cache is updated in /nh/data-cache on each node. This was introduced as a
+  # way to ensure we don't run into issues where access to data in the NFS
+  # server is being read too intensively by users that end up needing to wait
+  # several minutes on read operations.
+  #
+  # ref: https://github.com/neurohackademy/nh2020-jupyterhub/issues/114
+  #
   nodeCacher:
     enabled: false
 
 jupyterhub:
   debug:
-    enabled: true
+    enabled: false
 
   prePuller:
-    # Warning, enabling prePuller.hook could make a future chart upgrade fail
-    # because this will require a new pod to be created on all nodes where any
-    # users run, but sometimes the nodes can bottleneck with the pod count. The
-    # downside of not enabling it though is that users starting may end up
-    # needing to wait for the new image instead of quickly starting with an old
-    # image.
-    #
-    # ref: https://github.com/neurohackademy/nh2020-jupyterhub/issues/86
     hook:
-      enabled: false
+      enabled: true
     continuous:
       enabled: true
 
   scheduling:
     userScheduler:
       enabled: true
-      replicas: 2
+      replicas: 1
     podPriority:
       enabled: true
     userPlaceholder:
@@ -62,36 +58,33 @@ jupyterhub:
         matchNodePurpose: require
     userPods:
       nodeAffinity:
-        # POSTMORTEM: Changed this from require to prefer in order to save
+        # POSTMORTEM: Change this from require to prefer in order to save
         #             resources while still allowing for a few pods to spawn.
-        matchNodePurpose: prefer
+        matchNodePurpose: require
 
   singleuser:
-    ## cmd: set this to start-singleuser.sh if we use a docker-stacks image,
-    ## repo2docker does not come with that but the jupyterhub-singleuser command
-    ## is part of JupyterHub though.
-    ##
-    # cmd: start-singleuser.sh
     defaultUrl: /lab
     startTimeout: 900
-    ## cpu/memory requests:
-    ## We want to fit as many users on a m1-ultramem-40 node but still ensure
-    ## they get up to 24 GB of ram.
-    ##
-    ## NOTE: We provided far more resources than we ended up needing. At most
-    ##       about 6GB of memory was used by a pod, and we ran into the 110 pods
-    ##       per node limit.
-    ##
-    ## NOTE: These requests / limits should probably be set like the default
-    ##       option in the profile_list as these impact the user-placeholder
-    ##       pods.
+    # cpu/memory requests:
+    # We want to fit as many users on a e2-highmem-16 node with 128 GB RAM but
+    # still ensure they get up to 3 GB of ram.
+    #
+    # NOTE: We provided far more resources than we ended up needing. At most
+    #       about 6GB of memory was used by a pod, and we ran into the 110 pods
+    #       per node limit.
+    #
+    # NOTE: These requests / limits should probably be set like the default
+    #       option in the profile_list as these impact the user-placeholder
+    #       pods.
+    #
     cpu:
-      guarantee: 0.36 # guarantee as much as possible for 110 pods (max per
-                      # node because how k8s cluster was setup) to fit on a 40
+      guarantee: 0.14 # guarantee as much as possible for 110 pods (max per
+                      # node because how k8s cluster was setup) to fit on a 16
                       # CPU machine
       limit: 16       # allow for a lot more CPU to be used
     memory:
-      guarantee: 24G
+      guarantee: 2G
+      limit: 6G
     lifecycleHooks:
       postStart:
         exec:
@@ -101,13 +94,15 @@ jupyterhub:
     storage:
       storage:
         capacity: 10Gi
-      ## extraVolumes is for the pod in general
+      # extraVolumes is for the pod in general
       extraVolumes:
-        ## NFS enabled or not?
-        ## Comment out the nh-nfs volume if nfs.enabled: false
-        # - name: nh-nfs
-        #   persistentVolumeClaim:
-        #     claimName: nfs-pvc
+        # IMPORTANT: NFS enabled or not?
+        #
+        # Comment out the nh-nfs volume if nfs.enabled: false
+        #
+        - name: nh-nfs
+          persistentVolumeClaim:
+            claimName: nfs-pvc
         - name: nh-cache
           hostPath:
             path: /tmp/nh/data-cache
@@ -123,12 +118,14 @@ jupyterhub:
             name: user-usr-local-etc-jupyter
       ## extraVolumeMounts is for the pod's main container, not the initContainers
       extraVolumeMounts:
-        ## NFS enabled or not?
-        ## Comment out the nh-nfs volume if nfs.enabled: false
-        # - name: nh-nfs
-        #   mountPath: /nh/curriculum
-        #   subPath: curriculum
-        #   readOnly: true
+        # IMPORTANT: NFS enabled or not?
+        #
+        # Comment out the nh-nfs volumeMount if nfs.enabled: false
+        #
+        - name: nh-nfs
+          mountPath: /nh/curriculum
+          subPath: curriculum
+          readOnly: true
         - name: nh-cache
           mountPath: /nh/data
           subPath: data
@@ -142,9 +139,9 @@ jupyterhub:
           subPath: home-folder-replacements.sh
         - mountPath: /usr/local/etc/jupyter
           name: user-usr-local-etc-jupyter
-    ## initContainers:
-    ## We may want this to ensure whatever dataset is mounted through NFS is
-    ## readable for jovyan.
+    # initContainers:
+    # We may want this to ensure whatever dataset is mounted through NFS is
+    # readable for jovyan.
     initContainers:
       - name: chown-nfs-mount-to-jovyan
         image: busybox
@@ -154,7 +151,7 @@ jupyterhub:
           - "chown 1000:1000 /nh/data /nh/curriculum"
         securityContext:
           runAsUser: 0
-        ## volumeMounts mounts the pod's volume defined through extraVolumes
+        # volumeMounts mounts the pod's volume defined through extraVolumes
         volumeMounts:
           - name: nh-nfs
             mountPath: /nh/data
@@ -229,9 +226,9 @@ jupyterhub:
         #       ref: https://github.com/jupyterhub/jupyterhub/issues/2390
         #
         async def dynamic_options_form(self):
-            # POSTMORTEM: Changed this to True in order to save resources while
+            # POSTMORTEM: Change this to True in order to save resources while
             #             still allowing for a few pods to spawn.
-            resource_saver_mode = True
+            resource_saver_mode = False
             if resource_saver_mode:
                 self.profile_list = [
                     {
@@ -250,18 +247,23 @@ jupyterhub:
                 {
                     'default': True,
                     'display_name': 'Small',
-                    'description': '6GB RAM and up to 16 CPU cores.',
-                    'kubespawner_override': { 'mem_guarantee':' 6G' },
+                    'description': '2-6GB RAM and up to 16 CPU cores.',
                 },
                 {
                     'display_name': 'Medium',
-                    'description': '12GB RAM and up to 16 CPU cores.',
-                    'kubespawner_override': { 'mem_guarantee': '12G' },
+                    'description': '6-12GB RAM and up to 16 CPU cores.',
+                    'kubespawner_override': {
+                        'mem_guarantee':' 6G',
+                        'mem_limit':' 12G',
+                    },
                 },
                 {
                     'display_name': 'Large',
-                    'description': '24GB RAM and up to 16 CPU cores.',
-                    'kubespawner_override': { 'mem_guarantee': '24G' },
+                    'description': '12-24GB RAM and up to 16 CPU cores.',
+                    'kubespawner_override': {
+                        'mem_guarantee':' 12G',
+                        'mem_limit':' 24G',
+                    },
                 },
             ]
 
@@ -270,9 +272,8 @@ jupyterhub:
             if username in acl["instructors"] or username in acl["admins"]:
                 self.profile_list.extend([
                     {
-                        'display_name': 'Large - ~/data in read-only mode',
+                        'display_name': 'Small - ~/data in read-only mode',
                         'description': 'As an instructor you otherwise have read/write access to the shared ~/data folder. This option can help you trial only having read access.',
-                        'kubespawner_override': { 'mem_guarantee': '24G' },
                     }
                 ])
 
@@ -352,19 +353,21 @@ jupyterhub:
       #
       #   gcloud compute addresses list
       #
-      loadBalancerIP: 34.75.11.207
+      loadBalancerIP: 35.197.19.56
 
   cull:
     enabled: true
-    # NOTE: This should probably be set to a value lower than or equal to 3600
-    #       seconds given that its easy to startup later, notebooks are
+    # NOTE: timeout should probably be set to a value lower than or equal to
+    #       3600 seconds given that its easy to startup later, notebooks are
     #       automatically saved, and it won't shutdown if something is running.
-    timeout: 7200 # 2 hours in seconds
-    # NOTE: To have this at zero is probably a very bad idea as it make us fail
-    #       to scale down nodes. Typically there is always one straggler on a
-    #       node stuck in some code execution that doesn't end if it has housed
-    #       a hundred of users.
-    maxAge: 0 # Allow pods to run forever
+    #
+    timeout: 3600 # 1 hour in seconds
+    # NOTE: To have maxAge at zero is probably a very bad idea as it make us
+    #       fail to scale down nodes. Typically there is always one straggler on
+    #       a node stuck in some code execution that doesn't end if a node has
+    #       housed a hundred users.
+    #
+    maxAge: 57600 # Allow pods to run up to 12 hours
 
 # Reference on the Grafana Helm chart's configuration options:
 # https://github.com/helm/charts/blob/master/stable/grafana/values.yaml
@@ -372,8 +375,6 @@ grafana:
   # Reference on Grafana's configuration options:
   # http://docs.grafana.org/installation/configuration
   grafana.ini:
-    log:
-      level: debug
     server:
       domain: hub.neurohackademy.org
       # NOTE: Don't use %(protocol)s in root_url, but hardcode https. If not, it

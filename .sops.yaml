@@ -9,10 +9,10 @@
 #
 # To setup a new keyring and key:
 #
-#   gcloud kms keyrings create nh-2020 --location global
+#   gcloud kms keyrings create nh --location global
 #   gcloud kms keyrings list --location global
-#   gcloud kms keys create main --location global --keyring nh-2020 --purpose encryption
-#   gcloud kms keys list --location global --keyring nh-2020
+#   gcloud kms keys create main --location global --keyring nh --purpose encryption
+#   gcloud kms keys list --location global --keyring nh
 #
 # To encrypt a new file:
 #
@@ -23,4 +23,4 @@
 #   sops deployments/hub.neurohackademy.org/secrets/prod.yaml
 #
 creation_rules:
-  - gcp_kms: projects/neurohackademy/locations/global/keyRings/nh-2020/cryptoKeys/main
+  - gcp_kms: projects/neurohackademy/locations/global/keyRings/nh/cryptoKeys/main

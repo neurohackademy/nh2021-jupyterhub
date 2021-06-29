@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Install gsutil and provide us with an ability to backup data to the
-# gs://nh2020-data/ bucket like this:
+# gs://nh2021-data/ bucket like this:
 #
 #   # authenticate and such
 #   gsutil config
 #
-#   gsutil cp -r ~/data gs://nh2020-data
+#   gsutil cp -r ~/data gs://nh2021-data
 #
 curl -L -o /tmp/gsutil.tar.gz https://storage.googleapis.com/pub/gsutil.tar.gz
 tar xfz /tmp/gsutil.tar.gz -C /tmp

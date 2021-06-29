@@ -1,5 +1,5 @@
 images:
-  image_name: us.gcr.io/neurohackademy/nh-2020-env
+  image_name: us.gcr.io/neurohackademy/nh2021-jupyterhub-image
   registry:
     provider: gcloud
     gcloud:
@@ -11,5 +11,5 @@ cluster:
   gcloud:
     project: neurohackademy
     service_key: gke-key.json
-    cluster: nh-2020
+    cluster: nh2021
     zone: us-east1

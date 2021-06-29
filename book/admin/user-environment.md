@@ -12,10 +12,10 @@ the same as for BinderHubs like mybinder.org.
 ```
 
 To update the Docker image, the only thing you have to do is to update [this
-configuration](https://github.com/neurohackademy/nh2020-jupyterhub/tree/master/deployments/hub-neurohackademy-org/image)
+configuration](https://github.com/neurohackademy/nh2021-jupyterhub/tree/master/deployments/hub-neurohackademy-org/image)
 by submitting a Pull Request. If a PR is merged automation will kick in, and you
 can [track it
-here](https://github.com/neurohackademy/nh2020-jupyterhub/actions). First the
+here](https://github.com/neurohackademy/nh2021-jupyterhub/actions). First the
 tool [`repo2docker`](https://repo2docker.readthedocs.io) will be used to build a
 new image, if that succeeds https://hub.neurohackademy.org will get updated so
 that any new users starting up following this will make use of the new image.

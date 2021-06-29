@@ -1,39 +1,39 @@
 name: deploy-book
 
-# Only run this when the master branch's book folder changes
+# Only run this when the main branch's book folder changes
 on:
   push:
     paths:
-    - book/**
+      - book/**
     branches:
-    - master
+      - main
+  pull_request:
+    paths:
+      - book/**
+  workflow_dispatch:
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
   deploy-book:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-    - name: Git clone and checkout master
-      uses: actions/checkout@v2
-
-    # Install dependencies
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.8
 
     - name: Install book dependencies
       run: |
         pip install -r book/requirements.txt
 
-    # Build the book
     - name: Build the book
       run: |
         jupyter-book build ./book
 
-    # Push the book's HTML to github-pages
+    # ref: https://github.com/peaceiris/actions-gh-pages
     - name: Push built book to gh-pages branch
-      uses: peaceiris/actions-gh-pages@v3.6.1
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      uses: peaceiris/actions-gh-pages@v3.8.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./book/_build/html

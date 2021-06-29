@@ -8,7 +8,7 @@
 # way, we avoid reliance on GitHub and can manage a large amount of users at
 # thte same time trying to access GitHub from a limited IP range that could be
 # throttled. We fallback to using GitHub though.
-gitpuller /nh/curriculum master ~/curriculum || gitpuller https://github.com/neurohackademy/nh2020-curriculum.git master ~/curriculum || true
+gitpuller /nh/curriculum master ~/curriculum || gitpuller https://github.com/neurohackademy/nh2021-curriculum.git master ~/curriculum || true
 
 # Provide a symbolic link to the /nh/data folder in the home directory.
 [ -d ~/data ] || ln -s /nh/data/ ~/data || true

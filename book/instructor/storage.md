@@ -7,10 +7,10 @@ and they can all use `/tmp` for some extra scratch space.
 
 As an instructor you probably have some notebooks that you want to provide to
 users. Please add those to the GitHub repository
-[neurohackademy/nh2020-curriculum](https://github.com/neurohackademy/nh2020-curriculum)
+[neurohackademy/nh2021-curriculum](https://github.com/neurohackademy/nh2021-curriculum)
 and refer to Ariel Rokem (@arokem) for guidance about this.
 
-The material in the GitHub repository neurohackademy/nh2020-curriculum will be
+The material in the GitHub repository neurohackademy/nh2021-curriculum will be
 synced to `/nh/curriculum` every five minutes, which anyone can access in a
 read-only manner.
 
@@ -30,7 +30,7 @@ If you want to provide datasets to the participants using the notebooks, there
 are some options to consider. Please feel free to discuss your options with Erik
 Sundell (@consideRatio) or open a GitHub issue about your considerations.
 
-### Datasets in a git repository (neurohackademy/nh2020-curriculum)
+### Datasets in a git repository (neurohackademy/nh2021-curriculum)
 
 It is an option to put the datasets next to the notebooks on GitHub. It will
 make the GitHub repository a bit larger though. I would advice to avoid this for

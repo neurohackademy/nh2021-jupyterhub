@@ -1,6 +1,6 @@
 {{- if and .Values.nfs.enabled .Values.nfs.gitRepoSync.enabled -}}
 {{- /*
-    Syncs the git repo at https://github.com/neurohackademy/nh2020-curriculum
+    Syncs the git repo at https://github.com/neurohackademy/nh2021-curriculum
     to the NFS location /nh/curriculum.
 */ -}}
 apiVersion: batch/v1beta1
@@ -34,7 +34,7 @@ spec:
                     if [ -d .git ]; then
                         git pull
                     else
-                        git clone https://github.com/neurohackademy/nh2020-curriculum .
+                        git clone https://github.com/neurohackademy/nh2021-curriculum .
                     fi
               volumeMounts:
                 - name: nh

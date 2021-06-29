@@ -6,22 +6,32 @@ version: 0.1.0
 
 dependencies:
   # JupyterHub
+  # ArtifactHub:   https://artifacthub.io/packages/helm/jupyterhub/jupyterhub
+  # Source code:   https://github.com/jupyterhub/zero-to-jupyterhub-k8s
+  # App changelog: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/main/CHANGELOG.md
+  #
   - name: jupyterhub
-    version: 0.9.0-n150.h1ce17ed
+    version: 1.0.1
     repository: https://jupyterhub.github.io/helm-chart/
 
   # Prometheus for collection of metrics.
-  # https://hub.helm.sh/charts/stable/prometheus
+  # ArtifactHub:   https://artifacthub.io/packages/helm/prometheus-community/prometheus
+  # Source code:   https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus
+  # App changelog: https://github.com/prometheus/prometheus/blob/main/CHANGELOG.md
+  #
   - name: prometheus
-    version: 11.6.0
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    version: 14.3.0
+    repository: https://prometheus-community.github.io/helm-charts
     tags:
       - metrics
 
   # Grafana for dashboarding of metrics.
-  # https://hub.helm.sh/charts/stable/grafana
+  # ArtifactHub:   https://artifacthub.io/packages/helm/grafana/grafana
+  # Source code:   https://github.com/grafana/helm-charts/tree/main/charts/grafana
+  # App changelog: https://github.com/grafana/grafana/blob/main/CHANGELOG.md
+  #
   - name: grafana
-    version: 5.3.0
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    version: 6.13.5
+    repository: https://grafana.github.io/helm-charts
     tags:
       - metrics

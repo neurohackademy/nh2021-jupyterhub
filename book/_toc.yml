@@ -1,11 +1,8 @@
-- file: index
-
-- header: For participants
-
-- header: For instructors
-- file: instructor/access
-- file: instructor/storage
-- file: admin/user-environment
-
-- header: For admins
-- file: admin/work-log
+format: jb-book
+root: index
+parts:
+  - caption: For instructors
+    chapters:
+      - file: instructor/access
+      - file: instructor/storage
+      - file: admin/user-environment
