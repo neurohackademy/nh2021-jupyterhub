@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage &#8212; Jupyter environment</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://neurohackademy.github.io/nh2021-jupyterhub/instructor/storage.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Updating the user environment" href="../admin/user-environment.html" />
+    <link rel="prev" title="Getting access" href="access.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Jupyter environment</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   About
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  For instructors
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="access.html">
+   Getting access
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Storage
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin/user-environment.html">
+   Updating the user environment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/instructor/storage.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/neurohackademy/nh2021-jupyterhub"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/neurohackademy/nh2021-jupyterhub/issues/new?title=Issue%20on%20page%20%2Finstructor/storage.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/neurohackademy/nh2021-jupyterhub/edit/master/book/instructor/storage.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#notebooks-for-tutorials">
+   Notebooks for tutorials
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#datasets-for-tutorials">
+   Datasets for tutorials
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datasets-in-a-git-repository-neurohackademy-nh2021-curriculum">
+     Datasets in a git repository (neurohackademy/nh2021-curriculum)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datasets-on-the-internet">
+     Datasets on the internet
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datasets-in-the-docker-image">
+     Datasets in the Docker image
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datasets-in-shared-network-attached-storage">
+     Datasets in shared network attached storage
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="storage">
+<h1>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h1>
+<p>All users have 10GB of persistent storage during the course in <code class="docutils literal notranslate"><span class="pre">/home/jovyan</span></code>,
+and they can all use <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> for some extra scratch space.</p>
+<div class="section" id="notebooks-for-tutorials">
+<h2>Notebooks for tutorials<a class="headerlink" href="#notebooks-for-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>As an instructor you probably have some notebooks that you want to provide to
+users. Please add those to the GitHub repository
+<a class="reference external" href="https://github.com/neurohackademy/nh2021-curriculum">neurohackademy/nh2021-curriculum</a>
+and refer to Ariel Rokem (&#64;arokem) for guidance about this.</p>
+<p>The material in the GitHub repository neurohackademy/nh2021-curriculum will be
+synced to <code class="docutils literal notranslate"><span class="pre">/nh/curriculum</span></code> every five minutes, which anyone can access in a
+read-only manner.</p>
+<p>During startup of the user environment, each users will get a read/write copy of
+<code class="docutils literal notranslate"><span class="pre">/nh/curriculum</span></code> merged to <code class="docutils literal notranslate"><span class="pre">~/curriculum</span></code> in a a manner described <a class="reference external" href="https://jupyterhub.github.io/nbgitpuller/topic/automatic-merging.html">in more
+detail
+here</a>.</p>
+<p>if you as an instructor made recent changes to the GitHub repository, those will
+be seen in <code class="docutils literal notranslate"><span class="pre">/nh/curriculum</span></code> quickly within 5 minutes, but changes in
+<code class="docutils literal notranslate"><span class="pre">~/curriculum</span></code> will be seen only after the user restarts their environment using
+the JupyterLab File menu under the menu item <code class="docutils literal notranslate"><span class="pre">Hub</span> <span class="pre">control</span> <span class="pre">panel</span></code>.</p>
+</div>
+<div class="section" id="datasets-for-tutorials">
+<h2>Datasets for tutorials<a class="headerlink" href="#datasets-for-tutorials" title="Permalink to this headline">¶</a></h2>
+<p>If you want to provide datasets to the participants using the notebooks, there
+are some options to consider. Please feel free to discuss your options with Erik
+Sundell (&#64;consideRatio) or open a GitHub issue about your considerations.</p>
+<div class="section" id="datasets-in-a-git-repository-neurohackademy-nh2021-curriculum">
+<h3>Datasets in a git repository (neurohackademy/nh2021-curriculum)<a class="headerlink" href="#datasets-in-a-git-repository-neurohackademy-nh2021-curriculum" title="Permalink to this headline">¶</a></h3>
+<p>It is an option to put the datasets next to the notebooks on GitHub. It will
+make the GitHub repository a bit larger though. I would advice to avoid this for
+anything close to or larger than 10MB. It can make the git repository used by
+everyone slower to download and work with even if you delete the file later
+because its now part of git history.</p>
+</div>
+<div class="section" id="datasets-on-the-internet">
+<h3>Datasets on the internet<a class="headerlink" href="#datasets-on-the-internet" title="Permalink to this headline">¶</a></h3>
+<p>It is an option to put the dataset on internet somewhere. A consideration to
+make is what will happen if hundreds of participants download a ~100MB file
+simultaneously from a server though. A server could get overloaded or block
+access thinking it was suspicious that it received so many sudden download
+requests.</p>
+<p>The internet connection will be extremely good for the participants though.</p>
+</div>
+<div class="section" id="datasets-in-the-docker-image">
+<h3>Datasets in the Docker image<a class="headerlink" href="#datasets-in-the-docker-image" title="Permalink to this headline">¶</a></h3>
+<p>Another options is to embed the dataset in the Docker image. I think this could
+be a sensible option for datasets of the size ~1GB. A downside is that the image
+gets slow to build and download, but if the data is to be made available anyhow,
+its quite efficient to download it as part of the Docker image once for each
+server which may have ~40 users on it.</p>
+</div>
+<div class="section" id="datasets-in-shared-network-attached-storage">
+<h3>Datasets in shared network attached storage<a class="headerlink" href="#datasets-in-shared-network-attached-storage" title="Permalink to this headline">¶</a></h3>
+<p>Both instructors and participants will have access to shared network attached
+storage mounted in <code class="docutils literal notranslate"><span class="pre">/nh/data</span></code> or <code class="docutils literal notranslate"><span class="pre">~/data</span></code> which is is a symlink to <code class="docutils literal notranslate"><span class="pre">/nh/data</span></code>..
+Anything an instructor writes there will be available in a read-only mode for
+participants. While this is practical, it is not well tested at scale and could
+bottleneck.</p>
+<p>How efficient would it become if hundreds of users accessed this simultaneously
+and they all wanted to read hundreds a gigabyte of data? If you choose this
+option, I suggest a backup solution is considered alongside it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember that participants will access <code class="docutils literal notranslate"><span class="pre">/nh/data</span></code> or <code class="docutils literal notranslate"><span class="pre">~/data</span></code> which is is a
+symlink to <code class="docutils literal notranslate"><span class="pre">/nh/data</span></code>. in a read-only mode!</p>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./instructor"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="access.html" title="previous page">Getting access</a>
+    <a class='right-next' id="next-link" href="../admin/user-environment.html" title="next page">Updating the user environment</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Erik Sundell<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
