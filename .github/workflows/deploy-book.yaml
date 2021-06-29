@@ -4,11 +4,13 @@ name: deploy-book
 on:
   push:
     paths:
+      - .github/workflows/deploy-book.yaml
       - book/**
     branches:
       - main
   pull_request:
     paths:
+      - .github/workflows/deploy-book.yaml
       - book/**
   workflow_dispatch:
 
