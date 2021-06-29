@@ -92,8 +92,6 @@ jupyterhub:
             - "bash"
             - "/etc/singleuser/k8s-lifecycle-hook-post-start.sh"
     storage:
-      storage:
-        capacity: 10Gi
       # extraVolumes is for the pod in general
       extraVolumes:
         # IMPORTANT: NFS enabled or not?
