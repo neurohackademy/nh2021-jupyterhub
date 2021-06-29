@@ -58,7 +58,7 @@ jobs:
     - name: "hubploy: build"
       if: github.event_name != 'push' && github.event_name != 'workflow_dispatch'
       run: |
-        hubploy build hub-neurohackademy-org --push
+        hubploy build hub-neurohackademy-org
 
     - name: "hubploy: build and push"
       if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
