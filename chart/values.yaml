@@ -21,7 +21,7 @@ tags:
 
 jupyterhub:
   debug:
-    true
+    enabled: true
 
   hub:
     # NOTE: readinessProbe is disabled because of bad default values make a hub
