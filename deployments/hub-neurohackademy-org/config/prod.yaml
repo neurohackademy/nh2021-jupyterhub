@@ -340,6 +340,13 @@ jupyterhub:
         c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
 
   proxy:
+    traefik:
+      image:
+        # FIXME: this is a workaround using z2jh 1.0.1 where traefik v2.4.9 was
+        #        used that had the issue described in:
+        #        https://github.com/traefik/traefik/issues/8240
+        #
+        tag: v2.4.8
     https:
       enabled: true
       hosts: [hub.neurohackademy.org]
