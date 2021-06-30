@@ -30,7 +30,7 @@ nfs:
 
 jupyterhub:
   debug:
-    enabled: false
+    enabled: true
 
   prePuller:
     hook:
@@ -345,6 +345,7 @@ jupyterhub:
       hosts: [hub.neurohackademy.org]
       letsencrypt:
         contactEmail: erik@sundellopensource.se
+        acmeServer: https://acme-staging-v02.api.letsencrypt.org/directory
     service:
       type: LoadBalancer
       # NOTE: This address was reserved using the gcloud CLI for the nh2020 hub

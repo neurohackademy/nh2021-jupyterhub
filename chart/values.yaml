@@ -20,17 +20,7 @@ tags:
   metrics: true
 
 jupyterhub:
-  debug:
-    enabled: true
-
   hub:
-    # NOTE: readinessProbe is disabled because of bad default values make a hub
-    # under load become unavailable.
-    #
-    # ref: https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/1732
-    readinessProbe:
-      enabled: false
-
     # ref: https://jupyterhub.readthedocs.io/en/stable/reference/services.html#properties-of-a-service
     services:
       grafana:
