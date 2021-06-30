@@ -20,6 +20,9 @@ tags:
   metrics: true
 
 jupyterhub:
+  debug:
+    true
+
   hub:
     # NOTE: readinessProbe is disabled because of bad default values make a hub
     # under load become unavailable.
