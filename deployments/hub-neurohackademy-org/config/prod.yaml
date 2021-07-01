@@ -15,18 +15,7 @@ nfs:
   # unavailable etc.
   #
   gitRepoSync:
-    enabled: false
-  # nodeCacher ensures /nh/data-cache (node local copy of /nh/data (NFS)) is
-  # available on all nodes. It mounts the NFS share /nh/data and ensures a
-  # cache is updated in /nh/data-cache on each node. This was introduced as a
-  # way to ensure we don't run into issues where access to data in the NFS
-  # server is being read too intensively by users that end up needing to wait
-  # several minutes on read operations.
-  #
-  # ref: https://github.com/neurohackademy/nh2020-jupyterhub/issues/114
-  #
-  nodeCacher:
-    enabled: false
+    enabled: true
 
 jupyterhub:
   debug:
@@ -88,23 +77,23 @@ jupyterhub:
     lifecycleHooks:
       postStart:
         exec:
+          # NOTE: -l provides us with the same environment variables as normal
+          #       users, including PATH involving python scripts.
+          #
+          #       -c "bash our-script.sh > our-log.log > 2>&1" helps us capture
+          #       the output of the script into a log file to make it
+          #       debuggable.
           command:
             - "bash"
-            - "/etc/singleuser/k8s-lifecycle-hook-post-start.sh"
+            - "-lc"
+            - "bash /etc/singleuser/k8s-lifecycle-hook-post-start.sh > /tmp/lifecycle-postStart.log 2>&1"
     storage:
+      type: static
+      static:
+        pvcName: nfs-pvc
+        subPath: '{username}'
       # extraVolumes is for the pod in general
       extraVolumes:
-        # IMPORTANT: NFS enabled or not?
-        #
-        # Comment out the nh-nfs volume if nfs.enabled: false
-        #
-        - name: nh-nfs
-          persistentVolumeClaim:
-            claimName: nfs-pvc
-        - name: nh-cache
-          hostPath:
-            path: /tmp/nh/data-cache
-            type: Directory
         - name: user-etc-singleuser
           configMap:
             name: user-etc-singleuser
@@ -116,17 +105,9 @@ jupyterhub:
             name: user-usr-local-etc-jupyter
       ## extraVolumeMounts is for the pod's main container, not the initContainers
       extraVolumeMounts:
-        # IMPORTANT: NFS enabled or not?
-        #
-        # Comment out the nh-nfs volumeMount if nfs.enabled: false
-        #
-        - name: nh-nfs
+        - name: home
           mountPath: /nh/curriculum
           subPath: curriculum
-          readOnly: true
-        - name: nh-cache
-          mountPath: /nh/data
-          subPath: data
           readOnly: true
         - mountPath: /etc/singleuser
           name: user-etc-singleuser
@@ -146,15 +127,18 @@ jupyterhub:
         command:
           - "sh"
           - "-c"
-          - "chown 1000:1000 /nh/data /nh/curriculum"
+          - "chown 1000:1000 /home/jovyan /nh/data /nh/curriculum"
         securityContext:
           runAsUser: 0
         # volumeMounts mounts the pod's volume defined through extraVolumes
         volumeMounts:
-          - name: nh-nfs
+          - name: home
+            mountPath: /home/jovyan
+            subPath: '{username}'
+          - name: home
             mountPath: /nh/data
             subPath: data
-          - name: nh-nfs
+          - name: home
             mountPath: /nh/curriculum
             subPath: curriculum
 
@@ -306,26 +290,18 @@ jupyterhub:
 
             # FIXME: Allow "nfs.enabled: false" to function, which it currently
             #        won't because we try to mount something that doesn't exist
-            #        then. We could inspect if there is a nh-nfs volume defined
+            #        then. We could inspect if there is a home volume defined
             #        to do this I think.
 
             # Configure the pod's storage
             read_only = not (username in acl["admins"] or username in acl["instructors"])
             read_only = read_only or "read" in user_options.get("profile")
-            nh_volume_mount = {}
-            if read_only:
-                nh_volume_mount = {
-                    "name": "nh-cache",       # nh-cache is a hostPath volume with cached NFS /data
-                    "mountPath": "/nh/data",  # where it is made available in container
-                    "readOnly": read_only,
-                }
-            else:
-                nh_volume_mount = {
-                    "name": "nh-nfs",         # nh is a NFS volume
-                    "mountPath": "/nh/data",  # where it is made available in container
-                    "subPath": "data",        # what in the PVC to mount (must be a relative path)
-                    "readOnly": read_only,
-                }
+            nh_volume_mount = {
+                "name": "home",         # nh is a NFS volume
+                "mountPath": "/nh/data",  # where it is made available in container
+                "subPath": "data",        # what in the PVC to mount (must be a relative path)
+                "readOnly": read_only,
+            }
             # NOTE: If we would append spawner.volume_mounts we would risk
             # getting multiple entries in this in a future spawn. Due to that,
             # let's first remove mounts like the one we are about to add, then
@@ -340,13 +316,6 @@ jupyterhub:
         c.KubeSpawner.pre_spawn_hook = pre_spawn_hook
 
   proxy:
-    traefik:
-      image:
-        # FIXME: this is a workaround using z2jh 1.0.1 where traefik v2.4.9 was
-        #        used that had the issue described in:
-        #        https://github.com/traefik/traefik/issues/8240
-        #
-        tag: v2.4.8
     https:
       enabled: true
       hosts: [hub.neurohackademy.org]
