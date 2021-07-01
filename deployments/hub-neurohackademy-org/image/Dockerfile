@@ -123,8 +123,6 @@ RUN echo "Installing pip packages..." \
         # already installed were removed
         datalad \
         dipy \
-        git+https://github.com/arokem/mtw.git@pep518 \
-        git+https://github.com/arokem/POT.git@pep518 \
         git+https://github.com/consideRatio/pycortex.git@pep518 \
         git+https://github.com/nipype/pydra.git@50051730c4bf894ce9ba4833f8c267b5993e0ce0 \
         git+https://github.com/ReproNim/neurodocker.git@e64f58cc2d93620e6537d9efb0104cc87a99e5ca \
