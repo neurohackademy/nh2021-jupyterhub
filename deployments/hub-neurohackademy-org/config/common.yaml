@@ -11,7 +11,7 @@ acl.yaml:
     - arokem        # Ariel Rokem
     - noahbenson    # Noah Benson
     - tsalo         # Taylor Salo
-
+    - cgratton.     # Caterina Gratton
   # Instructors gain read access to the /nh/data folder
   participants:
     - consideRatio-demo # Erik Sundell, for debugging purposes
