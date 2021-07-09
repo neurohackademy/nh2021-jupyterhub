@@ -16,7 +16,8 @@ acl.yaml:
     - dxenes1       # Daniel Xenes
     - kitchell      # Lindsey Kitchell
     - sandyhider    # Sandy Hider
-    
+    - BrockWester   # Brock Wester
+    - wrgr.         # William Gray Roncal
     
   # Instructors gain read access to the /nh/data folder
   participants:
