@@ -112,7 +112,7 @@ RUN echo "Installing conda packages..." \
 RUN echo "Installing pip packages..." \
  && export PATH=${NB_PYTHON_PREFIX}/bin:${PATH} \
  && pip install --no-cache-dir \
-        jupyterlab==3.1.0a13 \
+        jupyterlab==3.1.0b1 \
             # ref: https://github.com/jupyterlab/jupyterlab
         plotly-geo \
             # NOTE: This package is not available in conda (conda-forge or
