@@ -52,7 +52,7 @@ jupyterhub:
 
         acl = read_acl()
         c.Authenticator.admin_users = acl["admins"]
-        c.Authenticator.whitelist = set.union(
+        c.Authenticator.allowed_users = set.union(
             acl["admins"],
             acl["instructors"],
             acl["participants"],
