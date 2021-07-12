@@ -106,7 +106,9 @@ jupyterhub:
         - name: user-usr-local-etc-jupyter
           configMap:
             name: user-usr-local-etc-jupyter
-      ## extraVolumeMounts is for the pod's main container, not the initContainers
+      # extraVolumeMounts is for the pod's main container, not the initContainers
+      # NOTE: ConfigMap/Secret volumes using subPath doesn't automatically
+      #       update after being mounted. This is fine though.
       extraVolumeMounts:
         - name: home
           mountPath: /nh/curriculum
@@ -116,9 +118,10 @@ jupyterhub:
           name: user-etc-singleuser
         - mountPath: /etc/profile.d/home-folder-replacements.sh
           name: user-etc-profile-d
-          # NOTE: ConfigMap/Secret volumes using subPath doesn't automatically
-          #       update after being mounted. This is fine though.
           subPath: home-folder-replacements.sh
+        - mountPath: /etc/profile.d/alias.sh
+          name: user-etc-profile-d
+          subPath: alias.sh
         - mountPath: /usr/local/etc/jupyter
           name: user-usr-local-etc-jupyter
     # initContainers:
