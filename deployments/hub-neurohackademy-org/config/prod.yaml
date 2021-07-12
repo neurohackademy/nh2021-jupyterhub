@@ -52,6 +52,9 @@ jupyterhub:
         matchNodePurpose: require
 
   singleuser:
+    cmd:
+      - jupyterhub-singleuser
+      - --LabApp.collaborative=True
     defaultUrl: /lab
     startTimeout: 900
     # cpu/memory requests:
