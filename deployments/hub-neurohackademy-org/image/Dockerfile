@@ -129,7 +129,6 @@ RUN echo "Installing pip packages..." \
         indexed-gzip \
         ipyvolume==0.6.0a8 \
         line_profiler \
-        matplotlib \
         memory_profiler \
         mne \
         neuropythy \
