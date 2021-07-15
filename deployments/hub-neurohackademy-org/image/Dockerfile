@@ -102,7 +102,7 @@ RUN echo "Installing conda packages..." \
         google-cloud-sdk \
         nodejs \
         sympy \
- && echo "Installing conda packages complete!"         
+ && echo "Installing conda packages complete!"
 
 
 # We use a conda first approach in this Dockerfile, so only install pip packages
@@ -129,10 +129,12 @@ RUN echo "Installing pip packages..." \
         indexed-gzip \
         ipyvolume==0.6.0a8 \
         line_profiler \
+        matplotlib \
         memory_profiler \
         mne \
         neuropythy \
         nibabel \
+        nimare==0.0.9 \
         nilearn \
         nipype \
         nitime \
