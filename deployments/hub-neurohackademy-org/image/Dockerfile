@@ -134,7 +134,7 @@ RUN echo "Installing pip packages..." \
         mne \
         neuropythy \
         nibabel \
-        nimare==0.0.9 \
+        nimare==0.0.10rc1 \
         nilearn \
         nipype \
         nitime \
