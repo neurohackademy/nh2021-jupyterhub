@@ -55,6 +55,11 @@ jobs:
       run: |
         pip install https://github.com/yuvipanda/hubploy/archive/master.zip
 
+        # Workarounds:
+        # docker needs six: https://github.com/docker/docker-py/pull/2844
+        # repo2docker needs chardet: https://github.com/jupyterhub/repo2docker/pull/1066
+        pip install six chardet
+
     - name: "hubploy: build"
       if: github.event_name != 'push' && github.event_name != 'workflow_dispatch'
       run: |
