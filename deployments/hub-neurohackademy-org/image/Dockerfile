@@ -147,6 +147,8 @@ RUN echo "Installing pip packages..." \
         templateflow \
         testkraken \
         transforms3d \
+        pytri \
+        intern \
  && echo "Installing pip packages complete!"
 
 
