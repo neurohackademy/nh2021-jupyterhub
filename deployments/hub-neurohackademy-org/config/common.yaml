@@ -19,6 +19,7 @@ acl.yaml:
     - BrockWester   # Brock Wester
     - wrgr          # William Gray Roncal
     - ericearl      # Eric Earl
+    - satra         # Satrajit Ghosh
     
   # Instructors gain read access to the /nh/data folder
   participants:
