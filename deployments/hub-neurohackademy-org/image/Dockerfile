@@ -103,6 +103,7 @@ RUN echo "Installing conda packages..." \
         nodejs \
         sympy \
         torch \
+        torchvision \
  && echo "Installing conda packages complete!"
 
 
