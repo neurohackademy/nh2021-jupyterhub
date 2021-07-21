@@ -102,7 +102,7 @@ RUN echo "Installing conda packages..." \
         google-cloud-sdk \
         nodejs \
         sympy \
-        torch \
+        pytorch \
         torchvision \
  && echo "Installing conda packages complete!"
 
