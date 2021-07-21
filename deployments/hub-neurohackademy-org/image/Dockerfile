@@ -149,7 +149,7 @@ RUN echo "Installing pip packages..." \
         transforms3d \
         pytri \
         intern \
-        pytorch \
+        torch \
         torchvision \
 && echo "Installing pip packages complete!"
 
