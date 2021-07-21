@@ -102,8 +102,6 @@ RUN echo "Installing conda packages..." \
         google-cloud-sdk \
         nodejs \
         sympy \
-        pytorch \
-        torchvision \
  && echo "Installing conda packages complete!"
 
 
@@ -151,7 +149,9 @@ RUN echo "Installing pip packages..." \
         transforms3d \
         pytri \
         intern \
- && echo "Installing pip packages complete!"
+        pytorch \
+        torchvision \
+&& echo "Installing pip packages complete!"
 
 
 # We install this explicitly for ipyvolume currently, see:
