@@ -149,7 +149,9 @@ RUN echo "Installing pip packages..." \
         transforms3d \
         pytri \
         intern \
- && echo "Installing pip packages complete!"
+        torch \
+        torchvision \
+&& echo "Installing pip packages complete!"
 
 
 # We install this explicitly for ipyvolume currently, see:
