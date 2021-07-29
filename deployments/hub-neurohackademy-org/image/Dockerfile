@@ -13,6 +13,11 @@ USER root
 # We only need to install packages not listed in this file already:
 # https://github.com/pangeo-data/pangeo-docker-images/blob/master/pangeo-notebook/apt.txt
 #
+# The following adds neurodebian to the sources for installation of neuro-specific software:
+RUN apt-get update && apt-get install -y gnupg2
+RUN wget -O- http://neuro.debian.net/lists/focal.us-ca.full | tee /etc/apt/sources.list.d/neurodebian.sources.list
+RUN apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+
 RUN echo "Installing apt-get packages..." \
  && apt-get update > /dev/null \
  && apt-get -qq install --yes \
@@ -41,7 +46,7 @@ RUN echo "Installing apt-get packages..." \
         ffmpeg \
         # neuro dependencies
         inkscape \
-            # pycortex dependency
+        connectome-workbench \
  && rm -rf /var/lib/apt/lists/*
 USER ${NB_USER}
 
